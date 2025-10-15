@@ -37,23 +37,20 @@ int32_t main() {
     //code here
     int t; cin>>t;
     while(t--){
-        int n, m; cin>>n>>m;
+        int n; cin>>n;
         vector<int> a(n);
         rep(i, 0, n) cin>>a[i];
-        int tot_dig = 0;
-        vector<int> b(n);
+        int s = n+1, t = n+1, ans = 0;
         rep(i, 0, n){
-            tot_dig += (a[i] == 0) ? 1 : (log10(a[i]) + 1);
-            int cnt = 0, x = a[i];
-            while(x%10 == 0){
-                cnt += 1;
-                x /= 10;
+            if(s > t) swap(s, t);
+            if(a[i] <= s) s = a[i];
+            else if(a[i] <= t) t = a[i];
+            else{
+                ans += 1;
+                s = a[i];
             }
-            b.pb(cnt);
         }
-        sort(rall(b));
-        for(int i=0 ; i<sz(b) ; i += 2) tot_dig -= b[i];
-        cout<<(tot_dig>m ? "Sasha" : "Anna")<<"\n";
+        cout<<ans<<"\n";
     }
     return 0;
 }
