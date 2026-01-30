@@ -37,17 +37,11 @@ int32_t main() {
     //code here
     int t; cin>>t;
     while(t--){
-        int n, k; cin>>n>>k;
-        vector<int> a(n);
-        map<int, int> mp;
-        rep(i, 0, n){
-            cin>>a[i];
-            if(a[i]%k != 0) mp[k-(a[i]%k)] += 1;
-        }
-        int ans = 0, mx = 0;
-        each(curr, mp){
-            int x = curr.ff, y = curr.ss;
-            ans = max(ans, k * (y - 1) + x + 1);
+        int n; cin>>n;
+        int ans = 0, x = 1;
+        while(n/x > 0){
+            ans += n/x;
+            x *= 2;
         }
         cout<<ans<<"\n";
     }

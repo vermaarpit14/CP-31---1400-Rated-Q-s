@@ -35,21 +35,16 @@ int32_t main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     //code here
-    int t; cin>>t;
-    while(t--){
-        int n, k; cin>>n>>k;
-        vector<int> a(n);
-        map<int, int> mp;
-        rep(i, 0, n){
-            cin>>a[i];
-            if(a[i]%k != 0) mp[k-(a[i]%k)] += 1;
-        }
-        int ans = 0, mx = 0;
-        each(curr, mp){
-            int x = curr.ff, y = curr.ss;
-            ans = max(ans, k * (y - 1) + x + 1);
-        }
-        cout<<ans<<"\n";
+    int n; cin>>n;
+    vector<int> a(n), b(n);
+    rep(i, 0, n) cin>>a[i];
+    rep(i, 0, n) cin>>b[i];
+    vector<vector<int>> dp(n+1, vector<int>(3, 0));
+    rep(i, 1, n+1){
+        dp[i][0] = max(dp[i-1][1], dp[i-1][2]) + a[i-1];
+        dp[i][1] = max(dp[i-1][0], dp[i-1][2]) + b[i-1];
+        dp[i][2] = max(dp[i-1][0], dp[i-1][1]);
     }
+    cout<<*max_element(all(dp[n]))<<"\n";
     return 0;
 }

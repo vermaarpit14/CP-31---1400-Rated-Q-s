@@ -37,19 +37,16 @@ int32_t main() {
     //code here
     int t; cin>>t;
     while(t--){
-        int n, k; cin>>n>>k;
-        vector<int> a(n);
-        map<int, int> mp;
-        rep(i, 0, n){
-            cin>>a[i];
-            if(a[i]%k != 0) mp[k-(a[i]%k)] += 1;
+        int n; cin>>n;
+        vector<int> arr(n);
+        rep(i, 0, n) cin>>arr[i];
+        vector<int> dp(n+1, 1);
+        for(int j=1 ; j<=n ; j++){
+            for(int i=j ; i<=n ; i+=j){
+                if(i%j==0 && arr[j-1]<arr[i-1]) dp[i] = max(dp[i], dp[j]+1);
+            }
         }
-        int ans = 0, mx = 0;
-        each(curr, mp){
-            int x = curr.ff, y = curr.ss;
-            ans = max(ans, k * (y - 1) + x + 1);
-        }
-        cout<<ans<<"\n";
+        cout<<*max_element(all(dp))<<"\n";
     }
     return 0;
 }

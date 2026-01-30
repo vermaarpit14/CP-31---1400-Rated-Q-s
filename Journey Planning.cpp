@@ -35,21 +35,13 @@ int32_t main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     //code here
-    int t; cin>>t;
-    while(t--){
-        int n, k; cin>>n>>k;
-        vector<int> a(n);
-        map<int, int> mp;
-        rep(i, 0, n){
-            cin>>a[i];
-            if(a[i]%k != 0) mp[k-(a[i]%k)] += 1;
-        }
-        int ans = 0, mx = 0;
-        each(curr, mp){
-            int x = curr.ff, y = curr.ss;
-            ans = max(ans, k * (y - 1) + x + 1);
-        }
-        cout<<ans<<"\n";
-    }
+    int n; cin>>n;
+    vector<int> b(n);
+    rep(i, 0, n) cin>>b[i];
+    unordered_map<int, int> mp;
+    rep(i, 0, n) mp[b[i]-i-1] += b[i];
+    int ans = 0;
+    each(x, mp) ans = max(ans, x.ss);
+    cout<<ans<<"\n";
     return 0;
 }
